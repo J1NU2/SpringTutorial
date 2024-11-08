@@ -23,13 +23,12 @@ public class WordController {
 		wvo.setWord(word);
 		wvo.setMeaning(meaning);
 		wlist.add(wvo);
-		System.out.println(word);
-		System.out.println(meaning);
-		System.out.println(wvo);
-		for (int i=0; i<wlist.size(); i++) {
-			System.out.println(wlist.get(i));
-		}
-		
+//		System.out.println(word);
+//		System.out.println(meaning);
+//		System.out.println(wvo);
+//		for (int i=0; i<wlist.size(); i++) {
+//			System.out.println(wlist.get(i));
+//		}
 		return "word/word";
 	}
 	
@@ -38,9 +37,9 @@ public class WordController {
 		model.addAttribute("search", search);
 		for (int i=0; i<wlist.size(); i++) {
 			if (search.equals(wlist.get(i).getWord())) {
-				System.out.println(wlist.get(i));
-				System.out.println(wlist.get(i).getWord());
-				System.out.println(wlist.get(i).getMeaning());
+//				System.out.println(wlist.get(i));
+//				System.out.println(wlist.get(i).getWord());
+//				System.out.println(wlist.get(i).getMeaning());
 				model.addAttribute("word", wlist.get(i).getWord());
 				model.addAttribute("meaning", wlist.get(i).getMeaning());
 				break;
