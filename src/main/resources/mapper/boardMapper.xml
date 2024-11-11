@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- DAO와 매핑은 아래의 namespace, id, parameterType과 똑같이 맞춰야 한다. -->
+<!-- namespace : DAO를 지정 -->
+<!-- id : 식별자를 지정 -->
+<!-- parameterType : VO를 지정 -->
+<mapper namespace="www.silver.dao.IF_BoardDAO">
+	<!-- ParameterType은 쿼리문의 ? 부분의 정보 -->
+	<insert id="inin" parameterType="www.silver.vo.BoardVO">
+		INSERT INTO kboard VALUES (#{category}, #{username}, #{pass}, #{title}, #{content}, #{viewMember}, SYSDATE)
+	</insert>
+	
+</mapper>
+
