@@ -12,7 +12,3 @@
 ![Spring Legacy](https://img.shields.io/badge/spring-6DB33F.svg?&style=for-the-badge&logo=spring&logoColor=white)
 
 <br/>
-
-## 📝 일정
-> - 강의 : https://github.com/J1NU2/SpringTutorial/tree/practice
-> - 개인 : https://github.com/J1NU2/SpringTutorial/tree/myprac
