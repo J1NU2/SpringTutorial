@@ -13,10 +13,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO kboard VALUES (#{category}, #{username}, #{pass}, #{title}, #{content}, #{viewMember}, SYSDATE)
 	</insert>
 	<select id="selectall" resultType="www.silver.vo.BoardVO">
-		SELECT * FROM kboard
+		SELECT t.* FROM (SELECT sub.*, ROWNUM AS rnum FROM (SELECT * FROM
+		kboard ORDER BY indate DESC) sub) t
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
 	</select>
 	<delete id="delone" parameterType="String">
 		DELETE FROM kboard WHERE title=#{delno}
 	</delete>
+	<select id="selectTitle" parameterType="String" resultType="www.silver.vo.BoardVO">
+		SELECT * FROM kboard WHERE title=#{title}
+	</select>
+	<update id="modone" parameterType="www.silver.vo.BoardVO">
+		UPDATE kboard SET category=#{category}, content=#{content}, viewMember=#{viewMember} WHERE title=#{title}
+	</update>
+	<select id="allcnt" resultType="int">
+		SELECT COUNT(*) FROM kboard
+	</select>
 </mapper>
 

@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import www.silver.vo.BoardVO;
+import www.silver.vo.PageVO;
 
 @Repository
 public class BoardDAOImpl implements IF_BoardDAO {
@@ -23,14 +24,29 @@ public class BoardDAOImpl implements IF_BoardDAO {
 	}
 
 	@Override
-	public List<BoardVO> selectAll() throws Exception {
-		
-		return sqlsession.selectList(mapperQuery + ".selectall");
+	public List<BoardVO> selectAll(PageVO pagevo) throws Exception {
+		return sqlsession.selectList(mapperQuery + ".selectall", pagevo);
 	}
 
 	@Override
 	public void deleteBoard(String delno) throws Exception {
 		sqlsession.delete(mapperQuery + ".delone", delno);
+	}
+
+	@Override
+	public BoardVO selectOne(String title) throws Exception {
+		return sqlsession.selectOne(mapperQuery + ".selectTitle", title);
+	}
+
+	@Override
+	public void updateBoard(BoardVO boardvo) throws Exception {
+		sqlsession.update(mapperQuery + ".modone", boardvo);
+	}
+
+	// 페이징
+	@Override
+	public int countBoard() throws Exception {
+		return sqlsession.selectOne(mapperQuery + ".allcnt");
 	}
 	
 }
