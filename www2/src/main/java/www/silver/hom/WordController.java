@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import www.silver.vo.WordVO;
+
 @Controller
 public class WordController {
 	ArrayList<WordVO> wlist = new ArrayList<WordVO>();

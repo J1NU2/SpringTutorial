@@ -1,4 +1,4 @@
-package www.silver.hom;
+package www.silver.vo;
 
 public class WordVO {
 	private String word;

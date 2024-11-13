@@ -279,6 +279,7 @@
             <li><span>Projects</span></li>
             <li><span>Packages</span></li>
             <li><span>Stars</span></li>
+            <li><a href="board"><span>게시판가기</span></a></li>
         </ul>
     </nav>
     <aside style="margin-top: 40px;">
