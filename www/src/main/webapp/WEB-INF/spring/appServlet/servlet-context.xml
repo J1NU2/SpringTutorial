@@ -28,7 +28,25 @@
 	
 	<beans:bean class="java.lang.String" id="uploadPath">
 		<beans:constructor-arg value="/tmp"></beans:constructor-arg>
+		<!-- 
+		<beans:constructor-arg value="C:\\tmp"></beans:constructor-arg>
+		 -->
 	</beans:bean>
+	
+	<!-- 인터셉터 설정 -->
+	<beans:bean id="authenInterceptor" class="www.silver.interceptor.AuthenticationInterceptor"></beans:bean>
+	<interceptors>
+		<interceptor>
+			<!-- 루트(/)이후에 오는 요청을 모두 인터셉터 : /** -->
+			<mapping path="/**" />
+			<!-- 인터셉터 제외 : exclude-mapping -->
+			<exclude-mapping path="/"/>
+			<exclude-mapping path="/resources**"/>
+			<exclude-mapping path="/board"/>
+			<exclude-mapping path="/login"/>
+			<beans:ref bean="authenInterceptor"/>
+		</interceptor>
+	</interceptors>
 	
 	<context:component-scan base-package="www.silver.hom"/>
 	<context:component-scan base-package="www.silver.util"/>
