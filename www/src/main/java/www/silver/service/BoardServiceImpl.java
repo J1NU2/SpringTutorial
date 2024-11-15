@@ -28,7 +28,18 @@ public class BoardServiceImpl implements IF_BoardService {
 		boardvo.setViewMember(checkedView(boardvo));
 		// DAO > Mapper > DB Insert
 		// DAO레이어에서 작업하기 위해 BoardVO객체를 DAO에게 넘겨준다.
+		
+		// 게시글을 kboard에 저장한다.
 		boarddao.insertBoard(boardvo);
+		
+		// 만약 첨부파일이 있을 경우, 첨부파일을 별도의 kboard_attach에 저장한다.
+		String[] fname = boardvo.getFilename();
+		if (fname.length >= 1) {
+			for (int i=0; i<fname.length; i++) {
+				// kboard_attach 테이블에 첨부파일을 저장하는 코드
+				if (fname[i] != null) boarddao.insertAttach(fname[i]);
+			}
+		}
 	}
 
 	@Override
@@ -44,13 +55,13 @@ public class BoardServiceImpl implements IF_BoardService {
 	}
 
 	@Override
-	public void deleteBoard(String delno) throws Exception {
-		boarddao.deleteBoard(delno);
+	public void deleteBoard(String num) throws Exception {
+		boarddao.deleteBoard(num);
 	}
 
 	@Override
-	public BoardVO modBoard(String modno) throws Exception {
-		return boarddao.selectOne(modno);
+	public BoardVO modBoard(String num) throws Exception {
+		return boarddao.selectOne(num);
 	}
 
 	@Override
@@ -81,5 +92,15 @@ public class BoardServiceImpl implements IF_BoardService {
 	@Override
 	public int totalCountBoard() throws Exception {
 		return boarddao.countBoard();
+	}
+
+	@Override
+	public BoardVO getBoard(String num) throws Exception {
+		return boarddao.selectOne(num);
+	}
+
+	@Override
+	public List<String> getAttach(String num) throws Exception {
+		return boarddao.selectAllAttach(num);
 	}
 }

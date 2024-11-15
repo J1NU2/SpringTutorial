@@ -13,9 +13,11 @@ public interface IF_BoardService {
 	// 의미 : 클라이언트가 요청한 전체 게시글을 보여줄 서비스 정의
 	public List<BoardVO> boardList(PageVO pagevo) throws Exception;
 	
-	public void deleteBoard(String delno) throws Exception;
-	public BoardVO modBoard(String modno) throws Exception;
+	public void deleteBoard(String num) throws Exception;
+	public BoardVO modBoard(String num) throws Exception;
 	public void modBoard(BoardVO boardvo) throws Exception;
+	public BoardVO getBoard(String num) throws Exception;
+	public List<String> getAttach(String num) throws Exception;
 	
 	// 페이징
 	public int totalCountBoard() throws Exception;

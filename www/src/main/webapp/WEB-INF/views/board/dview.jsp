@@ -427,72 +427,53 @@
       </div>
     </div>
     <div id="mainsection_01">
-
+      <br>
       <div>
-        <div>
-          <div class="card text-center">
-            <div class="card-body">
-
-              <h5 class="card-title">게시판</h5>
-            </div>
+        <div class="card text-center">
+          <div class="card-body">
+            <h5 class="card-title">자세히 보기</h5>
           </div>
         </div>
       </div>
-      <div id="article_table">
-        <table class="table">
-          <thead class="table-dark">
-            <tr>
-              <th scope="col">카테고리</th>
-              <th scope="col">제목</th>
-              <th scope="col">공개여부</th>
-              <th scope="col">작성일</th>
-              <th scope="col">수정/삭제</th>
-            </tr>
-          </thead>
-          <tbody>
-          <c:forEach items="${list}" var="boardvo">
-            <tr>
-              <th scope="row">${boardvo.category}</th>
-              <td><a href="view?num=${boardvo.num}">${boardvo.title}</a></td>
-              <td>${boardvo.viewMember}</td>
-              <td>${boardvo.indate}</td>
-              <td><a href="mod?num=${boardvo.num}">수정</a>/<a href="del?num=${boardvo.num}">삭제</a></td>
-            </tr>
-          </c:forEach>
-          <tr>
-          	<td colspan=5>
-          		<c:if test="${pageVO.prev}">
-					<a href="board?page=${pageVO.startPage - 1}">[이전페이지그룹]</a>
-				</c:if>
-				<!-- forEach 리스트틀 순회, 아래처럼 시작과 끝을 지정하여 반복 사용하는 것. -->
-				<c:forEach begin="${pageVO.startPage}" end="${pageVO.endPage}" var="idx">
-					<c:if test="${pageVO.page == idx}">*</c:if>
-					<a href="board?page=${idx}">${idx}</a>
-				</c:forEach>
-				<c:if test="${pageVO.next}">
-					<a href="board?page=${pageVO.endPage + 1}">[다음페이지그룹]</a>
-				</c:if>
-          	</td>
-          </tr>
-          </tbody>
-        </table>
-        <div id="table_menu">
-          <a href="board_w">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-plus"
-            viewBox="0 0 16 16">
-            <path d="M8.5 6a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V10a.5.5 0 0 0 1 0V8.5H10a.5.5 0 0 0 0-1H8.5V6z" />
-            <path
-              d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z" />
-          </svg>
-        </a>
+
+	  <!-- mulfipart를 이용해서 파일을 서버에 전송한다. -->
+      <form class="row g-3" action="bw_save" method="post" enctype="multipart/form-data">
+        <div class="col-md-4">
+          <label for="inputState" class="form-label">놀이터 선택</label>
+          ${boardvo.category}
         </div>
-
-      </div>
+        <div class="col-md-3">
+          <label for="inputCity" class="form-label">작성자</label>
+          ${boardvo.username}
+        </div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-12">
+          <label for="inputAddress" class="form-label">제목</label>
+          ${boardvo.title}
+        </div>
+        <div class="form-floating">
+          <label for="floatingTextarea2">Comments</label>
+          ${boardvo.content}
+        </div>
+        <div class="mb-3">
+        </div>
+        <c:forEach items="${attachList}" var="fname">
+        	<a href="download?filename=${fname}">fname</a>
+        	<img src="download?filename=${fname}" style="width:350px; height:350px;">
+        </c:forEach>
+        <div class="col-12">
+          <div class="form-check">
+          </div>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary">저장하기</button>
+        </div>
+      </form>
     </div>
+
   </div>
-
-
-
+  </div>
   <div id="asidelogin">
     <div id="loginbox">
       <div id="loginup">
@@ -544,8 +525,6 @@
 
     </div>
   </div>
-
-
   <div id="footer">
     <hr>
     김티처 tel. 010-9407-8767

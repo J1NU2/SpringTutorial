@@ -454,7 +454,7 @@
         </div>
         <div class="col-12">
           <label for="inputAddress" class="form-label">제목</label>
-          <input type="text" class="form-control" id="inputAddress" placeholder="제목을 입력하세요" name="title" value="${boardvo.title}" readonly>
+          <input type="text" class="form-control" id="inputAddress" placeholder="제목을 입력하세요" name="title" value="${boardvo.title}">
         </div>
         <div class="form-floating">
           <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
@@ -462,8 +462,8 @@
           <label for="floatingTextarea2">Comments</label>
         </div>
         <div class="mb-3">
-          <input class="form-control" type="file" id="formFile">
-          <input class="form-control" type="file" id="formFile">
+          <input class="form-control" type="file" id="formFile" name="file">
+          <input class="form-control" type="file" id="formFile" name="file">
         </div>
         <div class="col-12">
           <div class="form-check">
@@ -475,6 +475,7 @@
           </div>
         </div>
         <div class="col-12">
+          <input type="hidden" name="num" value="${boardvo.num}">
           <button type="submit" class="btn btn-primary">수정하기</button>
         </div>
       </form>

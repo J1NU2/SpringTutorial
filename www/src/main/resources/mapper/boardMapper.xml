@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="www.silver.dao.IF_BoardDAO">
 	<!-- ParameterType은 쿼리문의 ? 부분의 정보 -->
 	<insert id="inin" parameterType="www.silver.vo.BoardVO">
-		INSERT INTO kboard VALUES (#{category}, #{username}, #{pass}, #{title}, #{content}, #{viewMember}, SYSDATE)
+		INSERT INTO kboard VALUES (#{category}, #{username}, #{pass}, #{title}, #{content}, #{viewMember}, SYSDATE, kboard_seq.nextval)
 	</insert>
 	<select id="selectall" resultType="www.silver.vo.BoardVO">
 		SELECT t.* FROM (SELECT sub.*, ROWNUM AS rnum FROM (SELECT * FROM
@@ -18,16 +18,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}
 	</select>
 	<delete id="delone" parameterType="String">
-		DELETE FROM kboard WHERE title=#{delno}
+		DELETE FROM kboard WHERE num=#{num}
 	</delete>
-	<select id="selectTitle" parameterType="String" resultType="www.silver.vo.BoardVO">
-		SELECT * FROM kboard WHERE title=#{title}
+	<select id="selectOne" parameterType="String" resultType="www.silver.vo.BoardVO">
+		SELECT * FROM kboard WHERE num=#{num}
 	</select>
 	<update id="modone" parameterType="www.silver.vo.BoardVO">
-		UPDATE kboard SET category=#{category}, content=#{content}, viewMember=#{viewMember} WHERE title=#{title}
+		UPDATE kboard SET category=#{category}, title=#{title}, content=#{content}, viewMember=#{viewMember} WHERE num=#{num}
 	</update>
 	<select id="allcnt" resultType="int">
 		SELECT COUNT(*) FROM kboard
+	</select>
+	<insert id="insertAttach">
+		INSERT INTO kboard_attach VALUES ((SELECT MAX(num) FROM kboard), #{fname}, DEFAULT)
+	</insert>
+	<select id="selectAttach" resultType="String">
+		SELECT filename FROM kboard_attach WHERE num=#{num}
 	</select>
 </mapper>
 

@@ -29,13 +29,13 @@ public class BoardDAOImpl implements IF_BoardDAO {
 	}
 
 	@Override
-	public void deleteBoard(String delno) throws Exception {
-		sqlsession.delete(mapperQuery + ".delone", delno);
+	public void deleteBoard(String num) throws Exception {
+		sqlsession.delete(mapperQuery + ".delone", num);
 	}
 
 	@Override
-	public BoardVO selectOne(String title) throws Exception {
-		return sqlsession.selectOne(mapperQuery + ".selectTitle", title);
+	public BoardVO selectOne(String num) throws Exception {
+		return sqlsession.selectOne(mapperQuery + ".selectOne", num);
 	}
 
 	@Override
@@ -47,6 +47,16 @@ public class BoardDAOImpl implements IF_BoardDAO {
 	@Override
 	public int countBoard() throws Exception {
 		return sqlsession.selectOne(mapperQuery + ".allcnt");
+	}
+
+	@Override
+	public void insertAttach(String fname) throws Exception {
+		sqlsession.insert(mapperQuery + ".insertAttach", fname);
+	}
+
+	@Override
+	public List<String> selectAllAttach(String num) throws Exception {
+		return sqlsession.selectList(mapperQuery + ".selectAttach", num);
 	}
 	
 }

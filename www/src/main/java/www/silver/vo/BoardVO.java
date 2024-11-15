@@ -8,6 +8,8 @@ public class BoardVO {
 	private String content;
 	private String viewMember;
 	private String indate;
+	private String[] filename;
+	private String num;
 	
 	public String getCategory() {
 		return category;
@@ -50,6 +52,18 @@ public class BoardVO {
 	}
 	public void setIndate(String indate) {
 		this.indate = indate;
+	}
+	public String[] getFilename() {
+		return filename;
+	}
+	public void setFilename(String[] filename) {
+		this.filename = filename;
+	}
+	public String getNum() {
+		return num;
+	}
+	public void setNum(String num) {
+		this.num = num;
 	}
 	
 	@Override

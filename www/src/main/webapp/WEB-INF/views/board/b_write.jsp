@@ -435,7 +435,8 @@
         </div>
       </div>
 
-      <form class="row g-3" action="bw_save" method="post">
+	  <!-- mulfipart를 이용해서 파일을 서버에 전송한다. -->
+      <form class="row g-3" action="bw_save" method="post" enctype="multipart/form-data">
         <div class="col-md-4">
           <label for="inputState" class="form-label">놀이터 선택</label>
           <select id="inputState" class="form-select" name="category">
@@ -461,8 +462,8 @@
           <label for="floatingTextarea2">Comments</label>
         </div>
         <div class="mb-3">
-          <input class="form-control" type="file" id="formFile">
-          <input class="form-control" type="file" id="formFile">
+          <input class="form-control" type="file" id="formFile" name="file">
+          <input class="form-control" type="file" id="formFile" name="file">
         </div>
         <div class="col-12">
           <div class="form-check">

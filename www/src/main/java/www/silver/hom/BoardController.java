@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import www.silver.service.IF_BoardService;
+import www.silver.util.FileDataUtil;
 import www.silver.vo.BoardVO;
 import www.silver.vo.PageVO;
 
@@ -20,6 +22,9 @@ public class BoardController {
 	
 	@Inject
 	IF_BoardService boardservice;
+	
+	@Inject
+	FileDataUtil filedatautil;
 	
 	@GetMapping(value = "board")
 	public String board(@ModelAttribute PageVO pagevo, Model model) throws Exception {
@@ -51,8 +56,22 @@ public class BoardController {
 	}
 	
 	@PostMapping(value = "bw_save")
-	public String board_save(@ModelAttribute BoardVO boardvo) throws Exception {
+	public String board_save(@ModelAttribute BoardVO boardvo, MultipartFile[] file) throws Exception {
 //		System.out.println(boardvo.toString());
+		
+		// 파일 업로드 MultipartFile객체 사용
+		// 파일 업로드 테스트
+//		System.out.println(file);
+//		System.out.println(file.length);
+//		for (int i=0; i<file.length; i++) {
+//			System.out.println(file[i].getContentType());
+//			System.out.println(file[i].getOriginalFilename());
+//		}
+		String[] newFileName = filedatautil.fileUpload(file);
+//		System.out.println(newFileName);
+		
+		// 업로드된 파일명을 BoardVO에 저장
+		boardvo.setFilename(newFileName);
 		
 		// 서비스 레이어에서 작업하기 위해 BoardVO객체를 넘겨준다.
 		boardservice.addBoard(boardvo);
@@ -61,14 +80,14 @@ public class BoardController {
 	}
 	
 	@GetMapping(value = "del")
-	public String board_del(@RequestParam("delno") String delno) throws Exception {
-		boardservice.deleteBoard(delno);
+	public String board_del(@RequestParam("num") String num) throws Exception {
+		boardservice.deleteBoard(num);
 		return "redirect:board";
 	}
 	
 	@GetMapping(value = "mod")
-	public String board_mod(@RequestParam("modno") String modno, Model model) throws Exception {
-		BoardVO bvo = boardservice.modBoard(modno);
+	public String board_mod(@RequestParam("num") String num, Model model) throws Exception {
+		BoardVO bvo = boardservice.modBoard(num);
 		// sysout은 서버 입장에서 부하가 걸리는 작업이다.
 		// 그렇기 때문에 테스트 수행 후에는 삭제하거나 주석 처리를 하는 것이 좋다.
 		// 실제로 sysout은 잘 사용하지 않는다.
@@ -85,5 +104,16 @@ public class BoardController {
 //		System.out.println(boardvo.getTitle());
 		boardservice.modBoard(boardvo);
 		return "redirect:board";
+	}
+	
+	@GetMapping(value = "view")
+	public String boardView(@RequestParam("num") String num, Model model) throws Exception {
+		BoardVO boardvo = boardservice.getBoard(num);
+		// attach 테이블 정보 가져오기
+		List<String> attachList = boardservice.getAttach(num);
+		// view에게 전송할 값, 게시글과 첨부파일 리스트
+		model.addAttribute("boardvo", boardvo);
+		model.addAttribute("attachList", attachList);
+		return "board/dview";
 	}
 }
